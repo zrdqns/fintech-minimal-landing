@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+@theme {
+  --color-canvas: #ffffff;
+  --color-mist: #f5f7fb;
+  --color-fog: #eef2f8;
+  --color-ink: #0a0a0a;
+  --color-graphite: #1f2937;
+  --color-muted: #5b6573;
+  --color-line: #e6eaf1;
+  --color-accent: #2563eb;
+  --color-accent-strong: #1d4ed8;
+  --color-teal: #0d9488;
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --radius: 0.75rem;
+}
+
+:root {
+  color-scheme: light;
+}
+
+* {
+  border-color: var(--color-line);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  letter-spacing: -0.011em;
+}
+
+::selection {
+  background: #2563eb;
+  color: #fff;
+}
+
+/* Drifting ambient blobs behind the hero */
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(5%, -4%, 0) scale(1.1);
+  }
+  66% {
+    transform: translate3d(-4%, 5%, 0) scale(0.94);
+  }
+}
+.hero-blob {
+  animation: drift 20s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Animated gradient text */
+@keyframes shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+.text-gradient {
+  background-image: linear-gradient(
+    100deg,
+    #0a0a0a 0%,
+    #2563eb 42%,
+    #0d9488 58%,
+    #0a0a0a 100%
+  );
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 7s linear infinite;
+}
+
+/* Logo marquee */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee 32s linear infinite;
+}
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 12%,
+    #000 88%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 12%,
+    #000 88%,
+    transparent
+  );
+}
+
+/* Faint grid texture */
+.grid-texture {
+  background-image:
+    linear-gradient(to right, rgba(10, 10, 10, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(10, 10, 10, 0.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-blob,
+  .text-gradient,
+  .marquee-track {
+    animation: none !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
